@@ -4,11 +4,9 @@ layout: docu
 
 <div id="header">
   <div id="toc" class="toc2">
-    <p><a href=".."><i class="fa fa-calculator" aria-hidden="true"></i> </a></p>
     <div id="toctitle">{{ page.title }}</div>
     {% assign filelist = site.static_files  %}
     <ul class="sectlevel1">
-      <li><a href="..">Home</a></li>
       {% for file in filelist %}
         {% if file.path contains '.html' or file.path contains '.md' %}
           {% unless file.path contains 'README.md' %}
