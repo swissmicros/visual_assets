@@ -30,11 +30,9 @@ pwd = {{ pwd }} <br/>
   {% for file in filelist %}
     {% assign path = file.path | split: '/' %}
     {% assign dif = file.path | split: pwd %}
-    {% if dif[0] == '/' %}
       {% if path[depth] != file.name %}
           {{ file.path }}
       {% endif %}
-    {% endif %}
     {% if forloop.last == false %}::{% endif%}
   {% endfor %}
 {% endcapture %}
