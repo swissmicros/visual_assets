@@ -4,11 +4,16 @@ layout: docu
 
 <div id="header">
   <div id="toc" class="toc2">
-    <div id="toctitle">Public Repositories</div>
+    <p><a href=".."><i class="fa fa-calculator" aria-hidden="true"></i> </a></p>
+    <div id="toctitle">{{ page.title }}</div>
     {% assign filelist = site.static_files  %}
     <ul class="sectlevel1">
-      {% for repository in site.github.public_repositories %}
-      <li><a href="{{ repository.name }}"> {{ repository.name | replace: '-', ' ' | replace: '_', ' ' }}</a></li>
+      {% for file in filelist %}
+        {% if file.path contains '.html' or file.path contains '.md' %}
+          {% unless file.path contains 'README.md' %}
+      <li><a href="{{ site.baseurl }}{{ file.path | replace: '.md', '.html' }}"><i class="fa-solid fa-folder"></i> {{ file.basename }}</a></li>
+          {% endunless %}
+        {% endif %}
       {% endfor %}
     </ul> 
   </div>
@@ -23,15 +28,15 @@ layout: docu
 
 {% assign filelist = site.static_files  %}
 {% assign depth = page.path | split: '/' | size %}
-{% assign pwd = page.path | replace: page.name, '' %}
+{% assign pwd = '/' | append: page.path | replace: page.name, '' %}
 
 {% capture folders_list %}
   {% for file in filelist %}
-    {% assign path = file.path | split: '/' %}
-    {% assign dif = file.path | split: pwd %}
-    {% if dif[0] == '/' %}
-      {% if path[depth] != file.name %}
-          {{ file.path }}
+    {% assign tmp = file.path | split: '/' %}
+    {% assign dif = file.path | replace: pwd, '' %}
+    {% if dif != file.path %}
+      {% if tmp[depth] != file.name %}
+        {{ file.path }}
       {% endif %}
     {% endif %}
     {% if forloop.last == false %}::{% endif%}
@@ -41,8 +46,8 @@ layout: docu
 
 {% capture top_folder_list %}
   {% for folder in folders %}
-    {% assign path = folder | split: '/' %}
-      {{ path[depth] }}
+    {% assign tmp = folder | split: '/' %}
+      {{ tmp[depth] }}
     {% if forloop.last == false %}::{% endif %}
   {% endfor %}
 {% endcapture %}
@@ -74,3 +79,4 @@ layout: docu
 
   </tbody>
 </table>
+
