@@ -26,7 +26,9 @@ pwd = {{ pwd }} <br/>
 
 {% capture folders_list %}
   {% for file in site.static_files %}
-    {{ file.path }}
+    {% assign path = file.path | split: '/' %}
+    {% assign dif = file.path | split: pwd %}
+          {{ file.path }}
     {% if forloop.last == false %}::{% endif%}
   {% endfor %}
 {% endcapture %}
