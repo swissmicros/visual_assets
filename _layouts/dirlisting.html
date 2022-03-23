@@ -2,6 +2,24 @@
 layout: docu
 ---
 
+<div id="header">
+  <div id="toc" class="toc2">
+    <div id="toctitle">Public Repositories</div>
+    {% assign filelist = site.static_files  %}
+    <ul class="sectlevel1">
+      {% for repository in site.github.public_repositories %}
+      <li><a href="{{ site.baseurl }}/{{ repository.name }}"> {{ repository.name | replace: '-', ' ' | replace: '_', ' ' }}</a></li>
+      {% endfor %}
+    </ul> 
+  </div>
+</div>
+
+
+<h2>Directory listing {{ page.url | replace page.path, '' | replace '/', '' }}</h2>
+
+<div class="post-content">
+  {{ content }}
+</div>
 
 {% assign filelist = site.static_files  %}
 {% assign depth = page.path | split: '/' | size %}
@@ -30,32 +48,6 @@ layout: docu
 {% endcapture %}
 {% assign top_folders = top_folder_list | strip_newlines | replace: ' ', '' | split: '::' | uniq | compact | sort %}  
 
-
-<div id="header">
-  <div id="toc" class="toc2">
-    <p><a href=".."><i class="fa fa-calculator" aria-hidden="true"></i> </a></p>
-    <div id="toctitle">{{ page.title }}</div>
-    {% assign filelist = site.static_files  %}
-    <ul class="sectlevel1">
-      {% for file in filelist %}
-        {% if file.path contains '.html' or file.path contains '.md' %}
-          {% unless file.path contains 'README.md' %}
-      <li><a href="{{ site.baseurl }}{{ file.path | replace: '.md', '.html' }}"><i class="fa-solid fa-folder"></i> {{ file.basename }}</a></li>
-          {% endunless %}
-        {% endif %}
-      {% endfor %}
-    </ul> 
-  </div>
-</div>
-
-
-<h2>Directory listing {{ page.url | replace page.path, '' | replace '/', '' }}</h2>
-
-<div class="post-content">
-  {{ content }}
-</div>
-
-
 <table class="indexlist">
   <tbody>
     <tr><th style="width: 20px; overflow: hidden;"></th><th style="width: 30%; overflow: hidden;">Name</th><th style="width: 70%; overflow: hidden;">Description</th></tr>
@@ -82,4 +74,3 @@ layout: docu
 
   </tbody>
 </table>
-
