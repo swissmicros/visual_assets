@@ -5,7 +5,6 @@ layout: docu
 <div id="header">
   <div id="toc" class="toc2">
     <div id="toctitle">Public Repositories</div>
-    {% assign filelist = site.static_files  %}
     <ul class="sectlevel1">
       {% for repository in site.github.public_repositories %}
       <li><a href="{{ site.baseurl }}/{{ repository.name }}"> {{ repository.name | replace: '-', ' ' | replace: '_', ' ' }}</a></li>
@@ -21,18 +20,13 @@ layout: docu
   {{ content }}
 </div>
 
-{% assign filelist = site.static_files  %}
 {% assign depth = page.path | split: '/' | size %}
 {% assign pwd = page.path | replace: page.name, '' %}
 pwd = {{ pwd }} <br/>
 
 {% capture folders_list %}
-  {% for file in filelist %}
-    {% assign path = file.path | split: '/' %}
-    {% assign dif = file.path | split: pwd %}
-      {% if path[depth] != file.name %}
-          {{ file.path }}
-      {% endif %}
+  {% for file in site.static_files %}
+    {{ file.path }}
     {% if forloop.last == false %}::{% endif%}
   {% endfor %}
 {% endcapture %}
@@ -62,7 +56,7 @@ top_folders = {{ folders | array_to_sentence_string }} <br/>
   {% endif %}
 {% endfor %}
 
-{% for file in filelist %}
+{% for file in site.static_files %}
   {% assign dif = file.path | replace: pwd, '' %}
       {% assign desc = page.descriptions | where:"name", file.name | first %}
       <tr><td><a href="{{ file.name }}"><i class="fa-solid fa-file"></i></a></td><td><a href="{{ file.name }}">{{ file.name }}</a></td><td><a href="{{ file.name }}">{{ desc.text }}</a></td></tr>
