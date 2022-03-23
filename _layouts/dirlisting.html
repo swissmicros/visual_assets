@@ -1,0 +1,82 @@
+---
+layout: docu
+---
+
+<div id="header">
+  <div id="toc" class="toc2">
+    <p><a href=".."><i class="fa fa-calculator" aria-hidden="true"></i> </a></p>
+    <div id="toctitle">{{ page.title }}</div>
+    {% assign filelist = site.static_files  %}
+    <ul class="sectlevel1">
+      <li><a href="..">Home</a></li>
+      {% for file in filelist %}
+        {% if file.path contains '.html' or file.path contains '.md' %}
+          {% unless file.path contains 'README.md' %}
+      <li><a href="{{ site.baseurl }}{{ file.path | replace: '.md', '.html' }}"><i class="fa-solid fa-folder"></i> {{ file.basename }}</a></li>
+          {% endunless %}
+        {% endif %}
+      {% endfor %}
+    </ul> 
+  </div>
+</div>
+
+
+<h2>Directory listing {{ page.url | replace page.path, '' | replace '/', '' }}</h2>
+
+<div class="post-content">
+  {{ content }}
+</div>
+
+{% assign filelist = site.static_files  %}
+{% assign depth = page.path | split: '/' | size %}
+{% assign pwd = '/' | append: page.path | replace: page.name, '' %}
+
+{% capture folders_list %}
+  {% for file in filelist %}
+    {% assign tmp = file.path | split: '/' %}
+    {% assign dif = file.path | replace: pwd, '' %}
+    {% if dif != file.path %}
+      {% if tmp[depth] != file.name %}
+        {{ file.path }}
+      {% endif %}
+    {% endif %}
+    {% if forloop.last == false %}::{% endif%}
+  {% endfor %}
+{% endcapture %}
+{% assign folders = folders_list | split: '::'| uniq | sort %}  
+
+{% capture top_folder_list %}
+  {% for folder in folders %}
+    {% assign tmp = folder | split: '/' %}
+      {{ tmp[depth] }}
+    {% if forloop.last == false %}::{% endif %}
+  {% endfor %}
+{% endcapture %}
+{% assign top_folders = top_folder_list | strip_newlines | replace: ' ', '' | split: '::' | uniq | compact | sort %}  
+
+<table class="indexlist">
+  <tbody>
+    <tr><th style="width: 20px; overflow: hidden;"></th><th style="width: 30%; overflow: hidden;">Name</th><th style="width: 70%; overflow: hidden;">Description</th></tr>
+  {% if depth != 1 %}
+    <tr><td><a href=".."><i class="fa-solid fa-folder-open"></i></a></td><td><a href="..">Parent Directory</a></td><td></td></tr>
+  {% endif %}
+
+{% for folder in top_folders %}
+  {% if folder != '' %}
+     <tr><td><a href="{{ folder }}"><i class="fa-solid fa-folder"></i></a></td><td><a href="{{ folder }}">{{ folder }}</a></td><td><a href="{{ folder }}"></a></td></tr>
+  {% endif %}
+{% endfor %}
+
+{% for file in filelist %}
+  {% assign dif = file.path | replace: pwd, '' %}
+  {% if dif != file.path %}
+    {% assign tmp = file.path | split: '/' | size | minus: 1 %}
+    {% if tmp == depth %} 
+      {% assign desc = page.descriptions | where:"name", file.name | first %}
+      <tr><td><a href="{{ file.name }}"><i class="fa-solid fa-file"></i></a></td><td><a href="{{ file.name }}">{{ file.name }}</a></td><td><a href="{{ file.name }}">{{ desc.text }}</a></td></tr>
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+  </tbody>
+</table>
