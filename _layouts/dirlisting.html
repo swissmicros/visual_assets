@@ -1,13 +1,19 @@
 ---
 layout: docu
 ---
+{% assign abs_url  = page.url | absolute_url %}
+{% assign rel_url  = page.url | relative_url %}
+{% assign base_url = abs_url | replace: rel_url, '' %}
+{% assign depth = page.path | split: '/' | size %}
+{% assign pwd = page.path | replace: page.name, '' %}
 
 <div id="header">
   <div id="toc" class="toc2">
     <div id="toctitle">Public Repositories</div>
     <ul class="sectlevel1">
+      <li><a href="{{ site.baseurl }}/User-Manuals">User-Manuals</a></li>
       {% for repository in site.github.public_repositories %}
-      <li><a href="{{ site.baseurl }}/{{ repository.name }}"> {{ repository.name | replace: '-', ' ' | replace: '_', ' ' }}</a></li>
+      <li><a href="{{ base_url }}/{{ repository.name }}"> {{ repository.name | replace: '-', ' ' | replace: '_', ' ' }}</a></li>
       {% endfor %}
     </ul> 
   </div>
@@ -19,8 +25,7 @@ layout: docu
   {{ content }}
 </div>
 
-{% assign depth = page.path | split: '/' | size %}
-{% assign pwd = page.path | replace: page.name, '' %}
+<!-- base_url = {{ base_url }}<br/> -->
 <!-- depth = {{ depth }} <br/> -->
 <!-- pwd = {{ pwd }} <br/> -->
 
