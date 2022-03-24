@@ -28,8 +28,10 @@ pwd = {{ pwd }} <br/>
 {% capture folders_list %}
   {% for file in site.static_files %}
     {% assign path = file.path | split: '/' %}
-    {% if path[depth] != file.name %}
-      {{ file.path }}
+    {% if path | size  != depth %}
+      {% if path[depth] != file.name %}
+        {{ file.path }}
+      {% endif %}
     {% endif %}
     {% if forloop.last == false %}::{% endif%}
   {% endfor %}
