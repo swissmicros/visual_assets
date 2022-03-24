@@ -32,10 +32,10 @@ layout: docu
         {% assign dif = file.path | split: pwd %}
         {% if dif[0] == '/' || depth == 1 %}
           {{ file.path | replace: file.name, '' }}
+          {% if forloop.last == false %}::{% endif%}
         {% endif %}
       {% endif %}
     {% endif %}
-    {% if forloop.last == false %}::{% endif%}
   {% endfor %}
 {% endcapture %}
 {% assign folders = folders_list | split: '::'| uniq | sort %}  
@@ -59,9 +59,7 @@ layout: docu
   {% endif %}
 
 {% for folder in top_folders %}
-  {% if folder != '' %}
      <tr><td><a href="{{ folder }}"><i class="fa-solid fa-folder"></i></a></td><td><a href="{{ folder }}">{{ folder }}</a></td><td><a href="{{ folder }}"></a></td></tr>
-  {% endif %}
 {% endfor %}
 
 {% for file in site.static_files %}
