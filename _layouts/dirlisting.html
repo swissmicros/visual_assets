@@ -62,8 +62,6 @@ top_folders = {{ folders | array_to_sentence_string }} <br/>
   {% endif %}
 {% endfor %}
 
-    <tr><td><a href=".."><i class="fa-solid fa-folder-open"></i></a></td><td><a href="..">Parent Directory</a></td><td></td></tr>
-
 {% for file in site.static_files %}
   {% assign path = file.path | split: '/' %}
     {% if path | size == depth %} 
@@ -72,13 +70,6 @@ top_folders = {{ folders | array_to_sentence_string }} <br/>
     {% endif %}
 {% endfor %}
 
-    <tr><td><a href=".."><i class="fa-solid fa-folder-open"></i></a></td><td><a href="..">Parent Directory</a></td><td></td></tr>
-
-{% for file in site.static_files %}
-  {% assign dif = file.path | replace: pwd, '' %}
-      {% assign desc = page.descriptions | where:"name", file.name | first %}
-      <tr><td><a href="{{ file.name }}"><i class="fa-solid fa-file"></i></a></td><td><a href="{{ file.name }}">{{ file.name }}</a></td><td><a href="{{ file.name }}">{{ desc.text }}</a></td></tr>
-{% endfor %}
 
   </tbody>
 </table>
