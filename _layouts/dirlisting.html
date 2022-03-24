@@ -13,8 +13,7 @@ layout: docu
   </div>
 </div>
 
-
-<h2>Directory listing {{ repository.name | replace: '-', ' ' | replace: '_', ' ' }}{{ page.url | replace page.path, '' | replace '/', '' }}</h2>
+<h2>Directory listing {{ site.github.repository_name }}{{ page.url | replace page.path, '' | replace '/', '' }}</h2>
 
 <div class="post-content">
   {{ content }}
