@@ -22,8 +22,8 @@ layout: docu
 
 {% assign depth = page.path | split: '/' | size %}
 {% assign pwd = page.path | replace: page.name, '' %}
-depth = {{ depth }} <br/>
-pwd = {{ pwd }} <br/>
+<!-- depth = {{ depth }} <br/> -->
+<!-- pwd = {{ pwd }} <br/> -->
 
 {% capture folders_list %}
   {% for file in site.static_files %}
