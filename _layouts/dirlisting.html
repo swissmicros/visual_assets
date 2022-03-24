@@ -63,7 +63,7 @@ top_folders = {{ folders | array_to_sentence_string }} <br/>
 {% endfor %}
 
 {% for file in site.static_files %}
-  {% assign path_s = file.path | split: '/' | size %}
+  {% assign path_s = file.path | split: '/' | size | minus: 1 %}
     {% if path_s == depth %} 
       {% assign desc = page.descriptions | where:"name", file.name | first %}
       <tr><td><a href="{{ file.name }}"><i class="fa-solid fa-file"></i></a></td><td><a href="{{ file.name }}">{{ file.name }}</a></td><td><a href="{{ file.name }}">{{ desc.text }}</a></td></tr>
