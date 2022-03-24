@@ -30,7 +30,7 @@ pwd = {{ pwd }} <br/>
     {% assign path = file.path | split: '/' %}
     {% if path | size  != depth %}
       {% if path[depth] != file.name %}
-        {{ file.path }}
+        {{ file.path | replace: file.name, '' }}
       {% endif %}
     {% endif %}
     {% if forloop.last == false %}::{% endif%}
