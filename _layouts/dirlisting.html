@@ -58,7 +58,7 @@ layout: docu
   {% endfor %}
 {% endcapture %}
 {% assign top_folders = top_folder_list | strip_newlines | replace: ' ', '' | split: '::' | uniq | compact | sort %}  
-<!-- top_folders = {{ folders | array_to_sentence_string }} <br/> -->
+<!-- top_folders = {{ top_folders | array_to_sentence_string }} <br/> -->
 
 <table class="indexlist">
   <tbody>
