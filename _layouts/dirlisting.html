@@ -1,5 +1,42 @@
 ---
 layout: docu
+
+hidden_ext: 
+  - name: ".adoc"
+  - name: ".css"
+  - name: ".md"
+
+icons:
+  - extname: ".html"
+    icon: "fa-solid fa-file-code"
+  - extname: ".txt"
+    icon: "fa-solid fa-file-lines"
+  - extname: ".svg"
+    icon: "fa-solid fa-file-image"
+  - extname: ".jpg"
+    icon: "fa-solid fa-file-image"
+  - extname: ".ai"
+    icon: "fa-solid fa-file-image"
+  - extname: ".png"
+    icon: "fa-solid fa-file-image"
+  - extname: ".pdf"
+    icon: "fa-solid fa-file-pdf"
+  - extname: ".mp4"
+    icon: "fa-solid fa-file-video"
+  - extname: ".mp3"
+    icon: "fa-solid fa-file-music"
+  - extname: ".doc"
+    icon: "fa-solid fa-file-word"
+  - extname: ".zip"
+    icon: "fa-solid fa-file-zipper"
+  - extname: ".gz"
+    icon: "fa-solid fa-file-zipper"
+  - extname: ".tar"
+    icon: "fa-solid fa-file-zipper"
+  - extname: ".csv"
+    icon: "fa-solid fa-file-csv"
+  - extname: ".pgm"
+    icon: "fa-solid fa-solid fa-gears"
 ---
 {% assign abs_url  = page.url | absolute_url %}
 {% assign rel_url  = page.url | relative_url %}
@@ -21,8 +58,10 @@ layout: docu
   </div>
 </div>
 
-<h2>Directory listing {{ site.github.repository_name }}{{ page.url | replace page.path, '' | replace '/', '' }}</h2>
-
+<h2>{{ page.folder-text | default: page.url | replace: page.path, '' }}</h2>
+{% if page.folder-text == '' %}
+<h3>{{ page.url | replace: page.path, '' }}</h3>
+{% endif %}
 <div class="post-content">
   {{ content }}
 </div>
@@ -68,7 +107,11 @@ layout: docu
   {% endif %}
 
 {% for folder in top_folders %}
-   <tr><td><a href="{{ folder }}"><i class="fa-solid fa-folder"></i></a></td><td><a href="{{ folder }}">{{ folder }}</a></td><td><a href="{{ folder }}"></a></td></tr>
+  {% assign desc = page.descriptions | where:"name", folder | first %}
+  {% assign hide = page.hidden | where:"name", folder | first %}
+  {% unless hide.name == folder %}
+   <tr><td><a href="{{ folder }}"><i class="fa-solid fa-folder"></i></a></td><td><a href="{{ folder }}">{{ folder }}</a></td><td><a href="{{ folder }}">{{ desc.text }}</a></td></tr>
+  {% endunless %}      
 {% endfor %}
 
 {% for file in site.static_files %}
@@ -76,8 +119,16 @@ layout: docu
   {% if path_s == depth %} 
     {% assign dif = file.path | split: pwd %}
     {% if dif[0] == '/' %}
-      {% assign desc = page.descriptions | where:"name", file.name | first %}
-      <tr><td><a href="{{ file.name }}"><i class="fa-solid fa-file"></i></a></td><td><a href="{{ file.name }}">{{ file.name }}</a></td><td><a href="{{ file.name }}">{{ desc.text }}</a></td></tr>
+      {% assign ext = layout.hidden_ext | where:"name", file.extname | first %}
+      {% unless ext.name == file.extname %}
+        {% assign desc = page.descriptions | where:"name", file.name | first %}
+        {% assign hide = page.hidden | where:"name", file.name | first %}
+        {% unless hide.name == file.name %}
+          {% assign icon = layout.icons | where:"extname", file.extname | first %}
+          {% assign fa-icon = icon.icon | default: "fa-solid fa-file" %}
+    <tr><td><a href="{{ file.name }}"><i class="{{ fa-icon }}"></i></a></td><td><a href="{{ file.name }}">{{ file.name }}</a></td><td><a href="{{ file.name }}">{{ desc.text }}</a></td></tr>
+        {% endunless %}      
+      {% endunless %}      
     {% endif %}
   {% endif %}
 {% endfor %}
