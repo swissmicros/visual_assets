@@ -1,4 +1,4 @@
-name: home
+name: visual-assets
 title: Visual Assets
 version: main
 
@@ -6,7 +6,6 @@ asciidoc:
   attributes:
     source-language: asciidoc@
     table-caption: false
-
 nav:
-- index.md
+- modules/contribute/nav.adoc
 
