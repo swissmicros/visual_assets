@@ -7,5 +7,5 @@ asciidoc:
     source-language: asciidoc@
     table-caption: false
 nav:
-- modules/contribute/nav.adoc
+- nav.adoc
 
