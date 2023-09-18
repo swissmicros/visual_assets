@@ -1,0 +1,12 @@
+XO = 10 # Initial X offset
+YO = 10 # Initial Y offset
+FW = 10 # Font width
+FH = 14 # Font height
+DX =  2 # X char space
+DY =  4 # Y char space
+CDW =  2 # comma dot width
+CDH =  4 # comma dot height
+CDX = 10 # comma X offset without XO
+CDY = 48 # comma Y offset without YO
+
+FN = "font/bigfont32c.py" # Target filename
