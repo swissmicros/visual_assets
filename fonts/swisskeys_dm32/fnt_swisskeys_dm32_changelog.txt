@@ -1,0 +1,33 @@
+﻿DM32 SwissKeys font changelog
+
+Bitmap font SwissKeys for DM32 comes in 3 sizes. File listing:
+
+| fnt_swisskeys_dm32_changelog.txt     | this file
+| fnt_swisskeys_dm32_debug.bmp         | DEBUG size bitmap source
+| fnt_swisskeys_dm32_debug.bmp.info    | DEBUG size configuration file
+| fnt_swisskeys_dm32_show.bmp          | SHOW size bitmap source
+| fnt_swisskeys_dm32_show.bmp.info     | SHOW size configuration file
+| fnt_swisskeys_dm32_stack.bmp         | STACK size bitmap source
+| fnt_swisskeys_dm32_stack.bmp.info    | STACK size configuration file
+
+
+v3.70 : 2023-10-09
+==================
+
+- all glyphs of fnt_swisskeys_dm32_debug.bmp have been made wider for better on-calc readability 
+- bitmap size has been changed, fnt_swisskeys_dm32_debug.bmp.info updated accordingly (values DX and CDX)
+
+
+v3.55 : 2023-09-15
+==================
+
+- now includes David's configuration .info files
+- lowered "central" dot and comma characters in SHOW size
+- slightly modified drawing of "intercharacter" dot and comma characters in SHOW size (not used as of now, but modified the drawing for consistency)
+
+
+v3.50 : 2023-08-23
+==================
+
+- added SHOW size 
+- added DEBUG size
